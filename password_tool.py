@@ -16,6 +16,8 @@ COMMON_PASSWORDS = [
 ]
 
 
+
+
 # ============================================
 # TODO 1: Password Strength Checker
 # ============================================
@@ -51,7 +53,36 @@ def check_password_strength(password):
     Hint: Use .isdigit(), .isupper(), .islower() and string.punctuation
     """
     # TODO: Implement this function
-    pass
+    score = 0
+    if len(password) >= 8:
+        score += 20
+    if len(password) >= 12:
+        score += 10 
+    
+    if any(char.isdigit() for char in password):
+        score += 20
+    if any(char.isupper() for char in password):
+        score += 20
+    if any(char.islower() for char in password):
+        score += 20
+    if any(char in string.punctuation for char in password):
+        score += 20
+    if password not in COMMON_PASSWORDS:
+        score += 10    
+    
+    strength = "Weak"    
+    if score >= 70:
+        strength = "Strong"
+    elif score >= 40:
+        strength = "Medium"      
+        
+    
+    return {
+        "password": password,
+        "score": score,
+        "strength": strength,
+        "feedback": ""
+    }
 
 
 # ============================================
@@ -83,7 +114,17 @@ def generate_password(length=12, use_special=True):
           string.digits, and random.choice()
     """
     # TODO: Implement this function
-    pass
+    password = ''
+    choices = string.ascii_uppercase + string.ascii_lowercase + string.digits
+    if use_special:
+        choices += string.punctuation
+        
+    max_length = max(8, length)
+        
+    for _ in range(max_length):
+        password += random.choice(choices)
+    
+    return password
 
 
 # ============================================
