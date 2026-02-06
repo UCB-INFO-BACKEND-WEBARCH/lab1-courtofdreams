@@ -81,7 +81,6 @@ def check_password_strength(password):
         "password": password,
         "score": score,
         "strength": strength,
-        "feedback": ""
     }
 
 
@@ -150,7 +149,7 @@ if __name__ == "__main__":
             print("❌ TODO 1 should return a dictionary")
             exit()
         
-        required_keys = ["password", "score", "strength", "feedback"]
+        required_keys = ["password", "score", "strength"]
         missing_keys = [key for key in required_keys if key not in result]
         
         if missing_keys:
